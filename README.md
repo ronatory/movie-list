@@ -9,3 +9,9 @@ The project is about to work with the [Trakt.tv API](http://docs.trakt.apiary.io
 ## Installation
 
 To install it download it or clone and then start `pod install` in the project directory.
+
+## API Reference
+
+- Used [HanekeSwift](https://github.com/Haneke/HanekeSwift) for image caching
+
+- Used [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON) for dealing with JSON data
