@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		1EA3FF7D7DD19EB2FF32AB7F /* Pods_MovieList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D7C2929CD5BFF5CCB8C563 /* Pods_MovieList.framework */; };
 		4755061F1D981ABF001EEE17 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4755061E1D981ABF001EEE17 /* README.md */; };
+		4755062F1D9834AF001EEE17 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4755062E1D9834AF001EEE17 /* SearchViewController.swift */; };
 		47A2852F1D967649005E7616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A2852E1D967649005E7616 /* AppDelegate.swift */; };
-		47A285311D967649005E7616 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A285301D967649005E7616 /* ViewController.swift */; };
+		47A285311D967649005E7616 /* MostPopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A285301D967649005E7616 /* MostPopularMovieViewController.swift */; };
 		47A285341D967649005E7616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A285321D967649005E7616 /* Main.storyboard */; };
 		47A285361D967649005E7616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A285351D967649005E7616 /* Assets.xcassets */; };
 		47A285391D967649005E7616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A285371D967649005E7616 /* LaunchScreen.storyboard */; };
@@ -21,9 +22,10 @@
 		33CFE0B7FF0ED82FC8F016EF /* Pods-MovieList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieList.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieList/Pods-MovieList.release.xcconfig"; sourceTree = "<group>"; };
 		36D7C2929CD5BFF5CCB8C563 /* Pods_MovieList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4755061E1D981ABF001EEE17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		4755062E1D9834AF001EEE17 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47A2852B1D967649005E7616 /* MovieList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A2852E1D967649005E7616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		47A285301D967649005E7616 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		47A285301D967649005E7616 /* MostPopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovieViewController.swift; sourceTree = "<group>"; };
 		47A285331D967649005E7616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47A285351D967649005E7616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47A285381D967649005E7616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,7 +50,6 @@
 				47A2852E1D967649005E7616 /* AppDelegate.swift */,
 				47A285351D967649005E7616 /* Assets.xcassets */,
 				47A2853A1D967649005E7616 /* Info.plist */,
-				4755061E1D981ABF001EEE17 /* README.md */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -56,7 +57,8 @@
 		475506211D981C8C001EEE17 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				47A285301D967649005E7616 /* ViewController.swift */,
+				47A285301D967649005E7616 /* MostPopularMovieViewController.swift */,
+				4755062E1D9834AF001EEE17 /* SearchViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -105,6 +107,7 @@
 		47A2852D1D967649005E7616 /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
+				4755061E1D981ABF001EEE17 /* README.md */,
 				475506231D981CB2001EEE17 /* APIs */,
 				475506201D981C85001EEE17 /* App */,
 				475506211D981C8C001EEE17 /* Controllers */,
@@ -254,7 +257,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4755061F1D981ABF001EEE17 /* README.md in Sources */,
-				47A285311D967649005E7616 /* ViewController.swift in Sources */,
+				47A285311D967649005E7616 /* MostPopularMovieViewController.swift in Sources */,
+				4755062F1D9834AF001EEE17 /* SearchViewController.swift in Sources */,
 				47A2852F1D967649005E7616 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

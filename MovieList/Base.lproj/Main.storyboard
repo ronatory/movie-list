@@ -1,26 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7qh-Ib-3W2">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Search View Controller-->
+        <scene sceneID="prf-a5-psN">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dZE-l5-boR" customClass="SearchViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="xcC-72-cYU"/>
+                        <viewControllerLayoutGuide type="bottom" id="kxL-Qj-Jtd"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="tnQ-DA-7eQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="m65-Hg-W4A"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vgi-Yk-2ki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="796" y="1254"/>
+        </scene>
+        <!--Most Popular Movie View Controller-->
+        <scene sceneID="NcB-Zo-aS4">
+            <objects>
+                <viewController id="12u-yD-lj3" userLabel="Most Popular Movie View Controller" customClass="MostPopularMovieViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zue-fa-MBQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="8V8-Eo-RI0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="89s-Ec-ZKc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Most Popular Movies" image="most-popular-movies" id="Fwb-sv-Swr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fyf-XL-1tF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="593"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Ayg-JM-f4X">
+            <objects>
+                <tabBarController id="7qh-Ib-3W2" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="99h-Bu-bjm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="12u-yD-lj3" kind="relationship" relationship="viewControllers" id="gOj-IJ-QZb"/>
+                        <segue destination="dZE-l5-boR" kind="relationship" relationship="viewControllers" id="D7a-MU-X8d"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uvY-tF-9mR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-24" y="921"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="most-popular-movies" width="32" height="32"/>
+    </resources>
 </document>
