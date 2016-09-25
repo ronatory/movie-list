@@ -42,13 +42,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		475506201D981C85001EEE17 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				47A2852E1D967649005E7616 /* AppDelegate.swift */,
+				47A285351D967649005E7616 /* Assets.xcassets */,
+				47A2853A1D967649005E7616 /* Info.plist */,
+				4755061E1D981ABF001EEE17 /* README.md */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		475506211D981C8C001EEE17 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				47A285301D967649005E7616 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		475506221D981C9D001EEE17 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		475506231D981CB2001EEE17 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = APIs;
+			sourceTree = "<group>";
+		};
+		475506241D981CCC001EEE17 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				47A285371D967649005E7616 /* LaunchScreen.storyboard */,
+				47A285321D967649005E7616 /* Main.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		47A285221D967649005E7616 = {
 			isa = PBXGroup;
 			children = (
-				47A2852D1D967649005E7616 /* MovieList */,
-				47A2852C1D967649005E7616 /* Products */,
-				E725841B89EEFE639D1B9466 /* Pods */,
 				5FC78B485F7458047274408F /* Frameworks */,
+				47A2852D1D967649005E7616 /* MovieList */,
+				E725841B89EEFE639D1B9466 /* Pods */,
+				47A2852C1D967649005E7616 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,13 +105,11 @@
 		47A2852D1D967649005E7616 /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
-				4755061E1D981ABF001EEE17 /* README.md */,
-				47A2852E1D967649005E7616 /* AppDelegate.swift */,
-				47A285301D967649005E7616 /* ViewController.swift */,
-				47A285321D967649005E7616 /* Main.storyboard */,
-				47A285351D967649005E7616 /* Assets.xcassets */,
-				47A285371D967649005E7616 /* LaunchScreen.storyboard */,
-				47A2853A1D967649005E7616 /* Info.plist */,
+				475506231D981CB2001EEE17 /* APIs */,
+				475506201D981C85001EEE17 /* App */,
+				475506211D981C8C001EEE17 /* Controllers */,
+				475506221D981C9D001EEE17 /* Models */,
+				475506241D981CCC001EEE17 /* Views */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
