@@ -5,6 +5,52 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
+        <!--Most Popular Movies-->
+        <scene sceneID="zQu-pU-sDz">
+            <objects>
+                <tableViewController id="9eh-HE-Rcm" customClass="MostPopularMovieTableViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="oNq-yB-dUd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="cMt-uy-Zwt">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cMt-uy-Zwt" id="gOj-rX-91C">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9eh-HE-Rcm" id="DuJ-qp-llD"/>
+                            <outlet property="delegate" destination="9eh-HE-Rcm" id="1QF-5q-YiJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Most Popular Movies" id="u8m-vP-dLf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CuC-hq-HSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1446" y="329"/>
+        </scene>
+        <!--Most Popular Movies-->
+        <scene sceneID="7Rf-DC-OhX">
+            <objects>
+                <navigationController id="X24-aV-yMB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Most Popular Movies" image="most-popular-movies" id="wUt-bJ-0fX"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ht3-6l-aeC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9eh-HE-Rcm" kind="relationship" relationship="rootViewController" id="Gbk-Le-mVQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XjA-Pt-Rs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="818" y="322"/>
+        </scene>
         <!--Search View Controller-->
         <scene sceneID="prf-a5-psN">
             <objects>
@@ -24,25 +70,6 @@
             </objects>
             <point key="canvasLocation" x="796" y="1254"/>
         </scene>
-        <!--Most Popular Movie View Controller-->
-        <scene sceneID="NcB-Zo-aS4">
-            <objects>
-                <viewController id="12u-yD-lj3" userLabel="Most Popular Movie View Controller" customClass="MostPopularMovieViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zue-fa-MBQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="8V8-Eo-RI0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="89s-Ec-ZKc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Most Popular Movies" image="most-popular-movies" id="Fwb-sv-Swr"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fyf-XL-1tF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="796" y="593"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ayg-JM-f4X">
             <objects>
@@ -53,13 +80,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="12u-yD-lj3" kind="relationship" relationship="viewControllers" id="gOj-IJ-QZb"/>
-                        <segue destination="dZE-l5-boR" kind="relationship" relationship="viewControllers" id="D7a-MU-X8d"/>
+                        <segue destination="X24-aV-yMB" kind="relationship" relationship="viewControllers" id="y55-sj-0up"/>
+                        <segue destination="dZE-l5-boR" kind="relationship" relationship="viewControllers" id="Cuc-tl-MDR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvY-tF-9mR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-24" y="921"/>
+            <point key="canvasLocation" x="6" y="885"/>
         </scene>
     </scenes>
     <resources>

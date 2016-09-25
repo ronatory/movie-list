@@ -11,8 +11,8 @@
 		4755061F1D981ABF001EEE17 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4755061E1D981ABF001EEE17 /* README.md */; };
 		4755062F1D9834AF001EEE17 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4755062E1D9834AF001EEE17 /* SearchViewController.swift */; };
 		475506311D983940001EEE17 /* TraktApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475506301D983940001EEE17 /* TraktApiManager.swift */; };
+		475506351D98541E001EEE17 /* MostPopularMovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475506341D98541E001EEE17 /* MostPopularMovieTableViewController.swift */; };
 		47A2852F1D967649005E7616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A2852E1D967649005E7616 /* AppDelegate.swift */; };
-		47A285311D967649005E7616 /* MostPopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A285301D967649005E7616 /* MostPopularMovieViewController.swift */; };
 		47A285341D967649005E7616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A285321D967649005E7616 /* Main.storyboard */; };
 		47A285361D967649005E7616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A285351D967649005E7616 /* Assets.xcassets */; };
 		47A285391D967649005E7616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A285371D967649005E7616 /* LaunchScreen.storyboard */; };
@@ -25,9 +25,9 @@
 		4755061E1D981ABF001EEE17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		4755062E1D9834AF001EEE17 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		475506301D983940001EEE17 /* TraktApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktApiManager.swift; sourceTree = "<group>"; };
+		475506341D98541E001EEE17 /* MostPopularMovieTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MostPopularMovieTableViewController.swift; sourceTree = "<group>"; };
 		47A2852B1D967649005E7616 /* MovieList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A2852E1D967649005E7616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		47A285301D967649005E7616 /* MostPopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovieViewController.swift; sourceTree = "<group>"; };
 		47A285331D967649005E7616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47A285351D967649005E7616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47A285381D967649005E7616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 		475506211D981C8C001EEE17 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				47A285301D967649005E7616 /* MostPopularMovieViewController.swift */,
+				475506341D98541E001EEE17 /* MostPopularMovieTableViewController.swift */,
 				4755062E1D9834AF001EEE17 /* SearchViewController.swift */,
 			);
 			name = Controllers;
@@ -261,7 +261,7 @@
 			files = (
 				475506311D983940001EEE17 /* TraktApiManager.swift in Sources */,
 				4755061F1D981ABF001EEE17 /* README.md in Sources */,
-				47A285311D967649005E7616 /* MostPopularMovieViewController.swift in Sources */,
+				475506351D98541E001EEE17 /* MostPopularMovieTableViewController.swift in Sources */,
 				4755062F1D9834AF001EEE17 /* SearchViewController.swift in Sources */,
 				47A2852F1D967649005E7616 /* AppDelegate.swift in Sources */,
 			);
