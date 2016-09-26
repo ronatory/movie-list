@@ -19,7 +19,7 @@ class Movie {
 	
 	var runtime: Int
 	var tagline: String
-	var summary: String
+	var overview: String
 	
 	private var rating: Float
 	var ratingPercent: Int {
@@ -43,7 +43,7 @@ class Movie {
 		self.genreList = []
 		self.rating = 0.0
 		self.tagline = ""
-		self.summary = ""
+		self.overview = ""
 	}
 	
 	convenience init(json: JSON) {
@@ -54,7 +54,7 @@ class Movie {
 		slug = json["ids"]["slug"].stringValue
 		runtime = json["runtime"].intValue
 		tagline = json["tagline"].stringValue
-		summary = json["overview"].stringValue
+		overview = json["overview"].stringValue
 		rating = json["rating"].floatValue
 		
 		let bannerURL = json["images"]["banner"]["full"].stringValue
