@@ -13,6 +13,8 @@ class MovieTableViewController: UITableViewController {
 
 	var movies: [Movie] = []
 	
+	var pageForRequest: Int = 1
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -21,7 +23,8 @@ class MovieTableViewController: UITableViewController {
 		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieCell")
 		tableView.rowHeight = 80
 
-		fetchAndDisplayMovies()
+		fetchAndDisplayTopTenMovies()
+		
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -62,14 +65,22 @@ class MovieTableViewController: UITableViewController {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
 			}
 		}
+		
+		// check if reached last row then load next 10 movies
+		if indexPath.row == movies.count - 1 {
+			fetchAndDisplayMoreTopMovies()
+		}
+		
         return cell
     }
 	
-	func fetchAndDisplayMovies() {
+	func fetchAndDisplayTopTenMovies() {
+		// TODO: Add activity indicator inside screen when loading movies
+		// TODO: Refactor fetch and display methods -> DRY
 		let application = UIApplication.sharedApplication()
 		application.networkActivityIndicatorVisible = true
 		
-		TraktAPIManager().fetchMovies { (data, errorString) -> Void in
+		TraktAPIManager().fetchTopTenMovies { (data, errorString) -> Void in
 			application.networkActivityIndicatorVisible = false
 			
 			// ui should always happen on the main thread
@@ -83,6 +94,31 @@ class MovieTableViewController: UITableViewController {
 				}
 			}
 		}
+	}
+	
+	func fetchAndDisplayMoreTopMovies() {
+		// TODO: Add activity indicator inside screen when loading movies
+		// TODO: Refactor fetch and display methods -> DRY
+		let application = UIApplication.sharedApplication()
+		application.networkActivityIndicatorVisible = true
+		
+		// increase the number for the page request
+		pageForRequest += 1
+		TraktAPIManager().fetchMoreTopMovies(pageForRequest, callback: { (data, errorString) -> Void in
+			application.networkActivityIndicatorVisible = false
+			
+			// ui should always happen on the main thread
+			dispatch_async(dispatch_get_main_queue()) {
+				if let unwrappedData: NSData = data {
+					let newLoadedMovies = MovieFactory().createMovies(unwrappedData)
+					// add the new loaded movies to the existing movies array
+					self.movies.appendContentsOf(newLoadedMovies)
+					self.tableView.reloadData()
+				} else if let error = errorString {
+					print("\(error)")
+				}
+			}
+		})
 	}
 
 
