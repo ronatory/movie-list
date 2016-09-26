@@ -12,6 +12,10 @@ To install it download it or clone and then start `pod install` in the project d
 
 ## API Reference
 
-- Used [HanekeSwift](https://github.com/Haneke/HanekeSwift) for image caching
+- Use [HanekeSwift](https://github.com/Haneke/HanekeSwift) for image caching
 
-- Used [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON) for dealing with JSON data
+- Use [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON) for dealing with JSON data
+
+## Btw
+
+- Use [The Official raywenderlich.com Swift Style Guide](https://github.com/raywenderlich/swift-style-guide) as swift style guide
