@@ -51,25 +51,6 @@
             </objects>
             <point key="canvasLocation" x="818" y="322"/>
         </scene>
-        <!--Search View Controller-->
-        <scene sceneID="prf-a5-psN">
-            <objects>
-                <viewController id="dZE-l5-boR" customClass="SearchViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xcC-72-cYU"/>
-                        <viewControllerLayoutGuide type="bottom" id="kxL-Qj-Jtd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tnQ-DA-7eQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" systemItem="search" id="m65-Hg-W4A"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vgi-Yk-2ki" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="796" y="1254"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ayg-JM-f4X">
             <objects>
@@ -81,12 +62,63 @@
                     </tabBar>
                     <connections>
                         <segue destination="X24-aV-yMB" kind="relationship" relationship="viewControllers" id="y55-sj-0up"/>
-                        <segue destination="dZE-l5-boR" kind="relationship" relationship="viewControllers" id="Cuc-tl-MDR"/>
+                        <segue destination="tvd-8P-2JF" kind="relationship" relationship="viewControllers" id="Ywr-um-iHV"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvY-tF-9mR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6" y="885"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="XPM-zw-nvj">
+            <objects>
+                <tableViewController id="IGN-JW-ApU" customClass="SearchTableViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="X2P-11-ACQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="xZE-JW-bxF">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="QwZ-o5-pZg">
+                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QwZ-o5-pZg" id="gqD-yO-z1h">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="IGN-JW-ApU" id="ZKL-bL-ooS"/>
+                            <outlet property="delegate" destination="IGN-JW-ApU" id="EYl-YA-Jdr"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Search" id="GGq-og-5nG"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Osx-7t-yRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1560" y="1111"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qcD-g5-hkJ">
+            <objects>
+                <navigationController id="tvd-8P-2JF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="search" id="7DH-nk-9bo"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WcJ-po-jSM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="IGN-JW-ApU" kind="relationship" relationship="rootViewController" id="pdS-pO-FYE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wqI-Pt-Y5A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="818" y="1111"/>
         </scene>
     </scenes>
     <resources>
