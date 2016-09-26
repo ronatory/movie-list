@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1EA3FF7D7DD19EB2FF32AB7F /* Pods_MovieList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D7C2929CD5BFF5CCB8C563 /* Pods_MovieList.framework */; };
 		4730B1451D995DB500FF173E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730B1441D995DB500FF173E /* SearchViewController.swift */; };
+		4730B1471D99822300FF173E /* MovieSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730B1461D99822300FF173E /* MovieSearchResult.swift */; };
 		4755061F1D981ABF001EEE17 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4755061E1D981ABF001EEE17 /* README.md */; };
 		475506311D983940001EEE17 /* TraktApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475506301D983940001EEE17 /* TraktApiManager.swift */; };
 		475506351D98541E001EEE17 /* MovieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475506341D98541E001EEE17 /* MovieTableViewController.swift */; };
@@ -28,6 +29,7 @@
 		33CFE0B7FF0ED82FC8F016EF /* Pods-MovieList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieList.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieList/Pods-MovieList.release.xcconfig"; sourceTree = "<group>"; };
 		36D7C2929CD5BFF5CCB8C563 /* Pods_MovieList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4730B1441D995DB500FF173E /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4730B1461D99822300FF173E /* MovieSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchResult.swift; sourceTree = "<group>"; };
 		4755061E1D981ABF001EEE17 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		475506301D983940001EEE17 /* TraktApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktApiManager.swift; sourceTree = "<group>"; };
 		475506341D98541E001EEE17 /* MovieTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				475506361D985D0D001EEE17 /* Movie.swift */,
 				475506381D985D3E001EEE17 /* MovieFactory.swift */,
+				4730B1461D99822300FF173E /* MovieSearchResult.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				475506401D986D76001EEE17 /* IntExtensions.swift in Sources */,
 				475506311D983940001EEE17 /* TraktApiManager.swift in Sources */,
 				475506391D985D3E001EEE17 /* MovieFactory.swift in Sources */,
+				4730B1471D99822300FF173E /* MovieSearchResult.swift in Sources */,
 				4755063D1D986847001EEE17 /* MovieCell.swift in Sources */,
 				4755061F1D981ABF001EEE17 /* README.md in Sources */,
 				475506371D985D0D001EEE17 /* Movie.swift in Sources */,

@@ -13,12 +13,17 @@ class SearchViewController:  UIViewController {
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
 	
-	var movies: [Movie] = []
+	var movies: [MovieSearchResult] = []
 	
 	var hasSearched = false
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		// Add movie cell nib
+		let cellNib = UINib(nibName: "MovieCell", bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieCell")
+		tableView.rowHeight = 80
 		
 		// put the table view a little bit higher
 		tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0,
@@ -29,27 +34,46 @@ class SearchViewController:  UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	func fetchAndDisplayMovieSearchResults(searchText: String) {
+		// TODO: Add activity indicator inside screen when loading movies
+		// TODO: Refactor fetch and display methods -> DRY
+		let application = UIApplication.sharedApplication()
+		application.networkActivityIndicatorVisible = true
+		
+		TraktAPIManager().fetchMovieSearchResults(searchText, callback: { (data, errorString) -> Void in
+			application.networkActivityIndicatorVisible = false
+			
+			// ui should always happen on the main thread
+			dispatch_async(dispatch_get_main_queue()) {
+				if let unwrappedData: NSData = data {
+					// fill the movies array
+					self.movies = MovieFactory().createMovieSearchResults(unwrappedData)
+					self.tableView.reloadData()
+				} else if let error = errorString {
+					print("\(error)")
+				}
+			}
+		})
+	}
 }
 
 extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		// tells the searchBar not to listen any longer to keyboard inputs
-		// keyboard will hide itself until tap again inside searchBar
-		searchBar.resignFirstResponder()
 		
-		hasSearched = true
-		print("The search text is: '\(searchBar.text!)'")
-		
-		for i in 0...2 {
+		// only search if user enters a character
+		if !searchBar.text!.isEmpty {
+			// tells the searchBar not to listen any longer to keyboard inputs
+			// keyboard will hide itself until tap again inside searchBar
+			searchBar.resignFirstResponder()
 			
-			let movie = Movie()
-			movie.title = String(format: "Fake Result %d for", i)
+			hasSearched = true
 			
-			movie.overview = searchBar.text!
+			// to encode a space to a + for example, so that the app don't crash
+			let escapedSearchText = searchBar.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
 			
-			movies.append(movie)
+			fetchAndDisplayMovieSearchResults(escapedSearchText)
 		}
-		tableView.reloadData()
 	}
 }
 
@@ -68,24 +92,19 @@ extension SearchViewController: UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		
-		let cellIdentifier = "SearchResultCell"
-		var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
-		
-		if cell == nil {
-			cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
-		}
+		let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
 		
 		if movies.count == 0 {
-			cell.textLabel!.text = "(Nothing found)"
-			cell.detailTextLabel!.text = ""
-			
+			cell.movieTitleLabel.text = "Nothing found"
+			cell.movieYearLabel.text = ""
 		} else {
 			let movie = movies[indexPath.row]
-			cell.textLabel!.text = movie.title
-			cell.detailTextLabel!.text = movie.overview
+			cell.movieTitleLabel.text = movie.title
+			cell.movieYearLabel.text = movie.year.toString()
+			if let movieImageUrl = movie.poster {
+				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
+			}
 		}
-		
 		return cell
 	}
 }

@@ -55,6 +55,25 @@ class TraktAPIManager {
 		task.resume()
 	}
 	
+	func fetchMovieSearchResults(searchText: String, callback: (NSData?, String?) -> Void) {
+		
+		let urlStringForMovieSearchResults = "https://api.trakt.tv/search/movie?query=\(searchText)&extended=full,images&page=1&limit=\(moviesPerRequest)"
+		
+		let url = NSURL(string: urlStringForMovieSearchResults)!
+		let request = moviesURLRequest(url)
+		let task = session.dataTaskWithRequest(request) {
+			(data, response, error) -> Void in
+			let httpResponse = response as? NSHTTPURLResponse
+			
+			if error != nil {
+				callback(nil, "Error \(httpResponse): \(error!.localizedDescription)")
+			} else {
+				callback(data, nil)
+			}
+		}
+		task.resume()
+	}
+	
 	func moviesURLRequest(url: NSURL) -> NSMutableURLRequest {
 		let request = NSMutableURLRequest(URL: url)
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
