@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Most Popular Movies-->
@@ -33,6 +34,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CuC-hq-HSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1560" y="331"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="Fdu-fk-55p">
+            <objects>
+                <viewController id="R53-nL-51q" customClass="SearchViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qMx-hW-tjH"/>
+                        <viewControllerLayoutGuide type="bottom" id="w1w-J7-yEZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N0E-Jd-lrY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ERO-eo-fgE">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="R53-nL-51q" id="Vhi-qq-lbI"/>
+                                    <outlet property="delegate" destination="R53-nL-51q" id="vPF-aH-dqI"/>
+                                </connections>
+                            </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search Movies" translatesAutoresizingMaskIntoConstraints="NO" id="nZZ-bD-CZC">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="R53-nL-51q" id="Rw1-6F-igv"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ERO-eo-fgE" secondAttribute="trailing" constant="-20" id="5cy-qG-OaP"/>
+                            <constraint firstItem="w1w-J7-yEZ" firstAttribute="top" secondItem="ERO-eo-fgE" secondAttribute="bottom" id="IPX-0r-IP4"/>
+                            <constraint firstItem="nZZ-bD-CZC" firstAttribute="top" secondItem="qMx-hW-tjH" secondAttribute="bottom" id="Lc8-wJ-lxY"/>
+                            <constraint firstItem="ERO-eo-fgE" firstAttribute="leading" secondItem="N0E-Jd-lrY" secondAttribute="leadingMargin" constant="-20" id="eIP-hC-sRu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nZZ-bD-CZC" secondAttribute="trailing" constant="-20" id="eXM-jg-KHV"/>
+                            <constraint firstItem="ERO-eo-fgE" firstAttribute="top" secondItem="qMx-hW-tjH" secondAttribute="bottom" id="mHp-Pj-CyH"/>
+                            <constraint firstItem="nZZ-bD-CZC" firstAttribute="leading" secondItem="N0E-Jd-lrY" secondAttribute="leadingMargin" constant="-20" id="nhO-hB-C8g"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Search" id="aEX-i0-xP9"/>
+                    <connections>
+                        <outlet property="searchBar" destination="nZZ-bD-CZC" id="ZaN-PQ-cfm"/>
+                        <outlet property="tableView" destination="ERO-eo-fgE" id="hgh-E9-5OC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CgL-FX-FlS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1560" y="1111"/>
         </scene>
         <!--Most Popular Movies-->
         <scene sceneID="7Rf-DC-OhX">
@@ -69,40 +119,6 @@
             </objects>
             <point key="canvasLocation" x="6" y="885"/>
         </scene>
-        <!--Search-->
-        <scene sceneID="XPM-zw-nvj">
-            <objects>
-                <tableViewController id="IGN-JW-ApU" customClass="SearchTableViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="X2P-11-ACQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="xZE-JW-bxF">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="QwZ-o5-pZg">
-                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QwZ-o5-pZg" id="gqD-yO-z1h">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="IGN-JW-ApU" id="ZKL-bL-ooS"/>
-                            <outlet property="delegate" destination="IGN-JW-ApU" id="EYl-YA-Jdr"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Search" id="GGq-og-5nG"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Osx-7t-yRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1560" y="1111"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qcD-g5-hkJ">
             <objects>
@@ -113,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="IGN-JW-ApU" kind="relationship" relationship="rootViewController" id="pdS-pO-FYE"/>
+                        <segue destination="R53-nL-51q" kind="relationship" relationship="rootViewController" id="X0U-65-E0S"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqI-Pt-Y5A" userLabel="First Responder" sceneMemberID="firstResponder"/>
