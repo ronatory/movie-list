@@ -16,10 +16,10 @@ class TraktAPIManager {
 	
 	private let session = NSURLSession.sharedSession()
 	
-	func fetchTopMovies(callback: (NSData?, String?) -> Void) {
+	func fetchMovies(callback: (NSData?, String?) -> Void) {
 		
 		let url = NSURL(string: urlString)!
-		let request = topMoviesURLRequest(url)
+		let request = moviesURLRequest(url)
 		let task = session.dataTaskWithRequest(request) {
 			(data, response, error) -> Void in
 			let httpResponse = response as? NSHTTPURLResponse
@@ -33,7 +33,7 @@ class TraktAPIManager {
 		task.resume()
 	}
 	
-	func topMoviesURLRequest(url: NSURL) -> NSMutableURLRequest {
+	func moviesURLRequest(url: NSURL) -> NSMutableURLRequest {
 		let request = NSMutableURLRequest(URL: url)
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("2", forHTTPHeaderField: "trakt-api-version")

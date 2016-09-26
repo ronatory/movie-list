@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import Haneke
 
-class MostPopularMovieTableViewController: UITableViewController {
+class MovieTableViewController: UITableViewController {
 
+	var movies: [Movie] = []
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		// Add movie cell nib
+		let cellNib = UINib(nibName: "MovieCell", bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieCell")
+		tableView.rowHeight = 80
 
+		fetchAndDisplayMovies()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -34,17 +43,47 @@ class MostPopularMovieTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return movies.count
     }
 
 	
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-
-		cell.textLabel?.text = "test"
-
+		
+        let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+		
+		if self.movies.count == 0 {
+			cell.movieTitleLabel.text = "Nothing found"
+			cell.movieYearLabel.text = ""
+		} else {
+			let movie = movies[indexPath.row]
+			cell.movieTitleLabel.text = movie.title
+			cell.movieYearLabel.text = movie.year.toString()
+			if let movieImageUrl = movie.poster {
+				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
+			}
+		}
         return cell
     }
+	
+	func fetchAndDisplayMovies() {
+		let application = UIApplication.sharedApplication()
+		application.networkActivityIndicatorVisible = true
+		
+		TraktAPIManager().fetchMovies { (data, errorString) -> Void in
+			application.networkActivityIndicatorVisible = false
+			
+			// ui should always happen on the main thread
+			dispatch_async(dispatch_get_main_queue()) {
+				if let unwrappedData: NSData = data {
+					// fill the movies array
+					self.movies = MovieFactory().createMovies(unwrappedData)
+					self.tableView.reloadData()
+				} else if let error = errorString {
+					print("\(error)")
+				}
+			}
+		}
+	}
 
 
     /*
