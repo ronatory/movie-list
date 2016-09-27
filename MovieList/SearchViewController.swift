@@ -53,8 +53,7 @@ class SearchViewController:  UIViewController {
 				// user start to search by typing
 				self.hasSearched = true
 				
-				// to encode a space to a + for example, so that the app don't crash
-				let escapedSearchText = self.searchBar.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+				let escapedSearchText = self.searchBar.text!.escapeString()
 				
 				self.fetchAndDisplayMovieSearchResults(escapedSearchText)
 			}
@@ -106,8 +105,7 @@ extension SearchViewController: UISearchBarDelegate {
 			
 			hasSearched = true
 			
-			// to encode a space to a + for example, so that the app don't crash
-			let escapedSearchText = searchBar.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+			let escapedSearchText = searchBar.text!.escapeString()
 			
 			fetchAndDisplayMovieSearchResults(escapedSearchText)
 		}
