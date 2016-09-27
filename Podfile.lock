@@ -1,15 +1,22 @@
 PODS:
   - HanekeSwift (0.10.1)
+  - RxCocoa (2.6.0):
+    - RxSwift (~> 2.5)
+  - RxSwift (2.6.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - HanekeSwift
+  - RxCocoa (~> 2.0)
+  - RxSwift (~> 2.0)
   - SwiftyJSON (~> 2.3)
 
 SPEC CHECKSUMS:
   HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
+  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
+  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: ca99e30042c43959388e32f9a7a004e8b431e956
+PODFILE CHECKSUM: 4d8f7033a0b073b12f81dd21035e90791a224b6a
 
 COCOAPODS: 1.0.1

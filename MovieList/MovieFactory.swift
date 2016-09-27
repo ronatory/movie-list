@@ -23,4 +23,16 @@ class MovieFactory {
 		return movies
 	}
 	
+	func createMovieSearchResults(data: NSData) -> [MovieSearchResult] {
+		var movieSearchResults: [MovieSearchResult] = []
+		let json = JSON(data:data)
+		
+		for (_, subJson): (String, JSON) in json {
+			let movieSearchResult = MovieSearchResult(json: subJson)
+			movieSearchResults.append(movieSearchResult)
+		}
+		
+		return movieSearchResults
+	}
+	
 }

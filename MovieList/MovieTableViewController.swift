@@ -19,17 +19,14 @@ class MovieTableViewController: UITableViewController {
         super.viewDidLoad()
 		
 		// Add movie cell nib
-		let cellNib = UINib(nibName: "MovieCell", bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieCell")
-		tableView.rowHeight = 80
+		let cellNib = UINib(nibName: "MoviePopularCell", bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: "MoviePopularCell")
+		
+		// set an estimated row height with automatic dimension in case of longer overview text
+		tableView.estimatedRowHeight = 200
+		tableView.rowHeight = UITableViewAutomaticDimension
 
 		fetchAndDisplayTopTenMovies()
-		
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,7 +49,7 @@ class MovieTableViewController: UITableViewController {
 	
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-        let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("MoviePopularCell", forIndexPath: indexPath) as! MoviePopularCell
 		
 		if self.movies.count == 0 {
 			cell.movieTitleLabel.text = "Nothing found"
@@ -61,9 +58,17 @@ class MovieTableViewController: UITableViewController {
 			let movie = movies[indexPath.row]
 			cell.movieTitleLabel.text = movie.title
 			cell.movieYearLabel.text = movie.year.toString()
+			let rankNumber = indexPath.row + 1
+			cell.movieRankLabel.text = rankNumber.toString() + "."
 			if let movieImageUrl = movie.poster {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
 			}
+			
+			// show more lines of text
+			cell.movieOverviewLabel.numberOfLines = 0
+			cell.movieOverviewLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+			
+			cell.movieOverviewLabel.text = movie.overview
 		}
 		
 		// check if reached last row then load next 10 movies
