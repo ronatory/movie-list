@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class SearchViewController:  UIViewController {
 
@@ -17,6 +19,9 @@ class SearchViewController:  UIViewController {
 	
 	var hasSearched = false
 	
+	// release disposables when view is being deallocated
+	let disposeBag = DisposeBag()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -26,14 +31,46 @@ class SearchViewController:  UIViewController {
 		tableView.rowHeight = 80
 		
 		// put the table view a little bit higher
-		tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0,
-		                                      right: 0)
+		tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+		
+		setupRx()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	func setupRx() {
+		// search dynamic via use of reactivex
+		searchBar
+			.rx_text // observable property
+			.throttle(0.3, scheduler: MainScheduler.instance) // wait 0.3 seconds for changes
+			.distinctUntilChanged() // check if new value is same as old one
+			.filter { $0.characters.count > 0 } // filter for non-empty query
+			.subscribeNext { [unowned self] _ in
+				
+				// user start to search by typing
+				self.hasSearched = true
+				
+				// to encode a space to a + for example, so that the app don't crash
+				let escapedSearchText = self.searchBar.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+				
+				self.fetchAndDisplayMovieSearchResults(escapedSearchText)
+			}
+			.addDisposableTo(disposeBag)
+		
+		// tell the table view, if the user clicks on a cell
+		// and the keyboard is still visible, then hide it
+		tableView
+			.rx_itemSelected
+			.subscribeNext { indexPath in
+				if self.searchBar.isFirstResponder() == true {
+					self.view.endEditing(true)
+				}
+			}
+			.addDisposableTo(disposeBag)
+	}
 	
 	func fetchAndDisplayMovieSearchResults(searchText: String) {
 		// TODO: Add activity indicator inside screen when loading movies

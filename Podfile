@@ -7,6 +7,8 @@ target 'MovieList' do
 
   # Pods for MovieList
   pod 'SwiftyJSON', '~> 2.3'
-  pod 'HanekeSwift‘
+  pod 'HanekeSwift'
+  pod 'RxSwift',    '~> 2.0'
+  pod 'RxCocoa',    '~> 2.0'
 
 end
