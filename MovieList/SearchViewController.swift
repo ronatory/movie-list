@@ -24,15 +24,7 @@ class SearchViewController:  UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		// Add movie cell nib
-		let cellNib = UINib(nibName: "MovieCell", bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieCell")
-		tableView.rowHeight = 80
-		
-		// put the table view a little bit higher
-		tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
-		
+		setupTableView()
 		setupRx()
     }
 
@@ -40,6 +32,19 @@ class SearchViewController:  UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	func setupTableView() {
+		// Add movie search cell nib
+		let cellNib = UINib(nibName: "MovieSearchCell", bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieSearchCell")
+		
+		// set an estimated row height with automatic dimension in case of longer overview text
+		tableView.estimatedRowHeight = 200
+		tableView.rowHeight = UITableViewAutomaticDimension
+		
+		// put the table view a higher cause of the searchbar
+		tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+	}
 	
 	func setupRx() {
 		// search dynamic via use of reactivex
@@ -127,7 +132,7 @@ extension SearchViewController: UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("MovieSearchCell", forIndexPath: indexPath) as! MovieSearchCell
 		
 		if movies.count == 0 {
 			cell.movieTitleLabel.text = "Nothing found"
@@ -139,6 +144,11 @@ extension SearchViewController: UITableViewDataSource {
 			if let movieImageUrl = movie.poster {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
 			}
+			// show more lines of text
+			cell.movieOverviewLabel.numberOfLines = 0
+			cell.movieOverviewLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+			
+			cell.movieOverviewLabel.text = movie.overview
 		}
 		return cell
 	}
