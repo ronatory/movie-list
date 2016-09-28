@@ -21,6 +21,8 @@
 		475506401D986D76001EEE17 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4755063F1D986D76001EEE17 /* IntExtensions.swift */; };
 		47930DDC1D9BC93700464E23 /* MovieSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47930DDB1D9BC93700464E23 /* MovieSearchCell.xib */; };
 		47930DDE1D9BC97B00464E23 /* MovieSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47930DDD1D9BC97B00464E23 /* MovieSearchCell.swift */; };
+		47930DE31D9C3EDD00464E23 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47930DE21D9C3EDD00464E23 /* NothingFoundCell.xib */; };
+		47930DE61D9C403400464E23 /* TableViewCellIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47930DE51D9C403400464E23 /* TableViewCellIdentifiers.swift */; };
 		47A2852F1D967649005E7616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A2852E1D967649005E7616 /* AppDelegate.swift */; };
 		47A285341D967649005E7616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A285321D967649005E7616 /* Main.storyboard */; };
 		47A285361D967649005E7616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A285351D967649005E7616 /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 		4755063F1D986D76001EEE17 /* IntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		47930DDB1D9BC93700464E23 /* MovieSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieSearchCell.xib; sourceTree = "<group>"; };
 		47930DDD1D9BC97B00464E23 /* MovieSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchCell.swift; sourceTree = "<group>"; };
+		47930DE21D9C3EDD00464E23 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		47930DE51D9C403400464E23 /* TableViewCellIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellIdentifiers.swift; sourceTree = "<group>"; };
 		47A2852B1D967649005E7616 /* MovieList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A2852E1D967649005E7616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47A285331D967649005E7616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 				47A285321D967649005E7616 /* Main.storyboard */,
 				474BB8C41D9B0D2F00F53A15 /* MoviePopularCell.xib */,
 				47930DDB1D9BC93700464E23 /* MovieSearchCell.xib */,
+				47930DE21D9C3EDD00464E23 /* NothingFoundCell.xib */,
 				474BB8C61D9B0F9B00F53A15 /* MoviePopularCell.swift */,
 				47930DDD1D9BC97B00464E23 /* MovieSearchCell.swift */,
 			);
@@ -121,6 +126,14 @@
 				474BB8C21D9AF4CC00F53A15 /* StringExtensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		47930DE41D9C3FFD00464E23 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				47930DE51D9C403400464E23 /* TableViewCellIdentifiers.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		47A285221D967649005E7616 = {
@@ -148,6 +161,7 @@
 				4755063E1D986BFE001EEE17 /* Extensions */,
 				475506231D981CB2001EEE17 /* APIs */,
 				475506201D981C85001EEE17 /* App */,
+				47930DE41D9C3FFD00464E23 /* Helpers */,
 				475506211D981C8C001EEE17 /* Controllers */,
 				475506221D981C9D001EEE17 /* Models */,
 				475506241D981CCC001EEE17 /* Views */,
@@ -235,6 +249,7 @@
 			files = (
 				47A285391D967649005E7616 /* LaunchScreen.storyboard in Resources */,
 				47A285361D967649005E7616 /* Assets.xcassets in Resources */,
+				47930DE31D9C3EDD00464E23 /* NothingFoundCell.xib in Resources */,
 				47930DDC1D9BC93700464E23 /* MovieSearchCell.xib in Resources */,
 				47A285341D967649005E7616 /* Main.storyboard in Resources */,
 				474BB8C51D9B0D2F00F53A15 /* MoviePopularCell.xib in Resources */,
@@ -301,6 +316,7 @@
 				475506311D983940001EEE17 /* TraktApiManager.swift in Sources */,
 				475506391D985D3E001EEE17 /* MovieFactory.swift in Sources */,
 				4730B1471D99822300FF173E /* MovieSearchResult.swift in Sources */,
+				47930DE61D9C403400464E23 /* TableViewCellIdentifiers.swift in Sources */,
 				47930DDE1D9BC97B00464E23 /* MovieSearchCell.swift in Sources */,
 				4755061F1D981ABF001EEE17 /* README.md in Sources */,
 				474BB8C31D9AF4CC00F53A15 /* StringExtensions.swift in Sources */,
