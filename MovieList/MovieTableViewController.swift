@@ -76,6 +76,7 @@ class MovieTableViewController: UITableViewController {
 		
 		// check if reached last row then load next 10 movies
 		if indexPath.row == movies.count - 1 {
+			// TODO: see search view controller, refactor
 			fetchAndDisplayMoreTopMovies()
 		}
 		
@@ -118,6 +119,7 @@ class MovieTableViewController: UITableViewController {
 			// ui should always happen on the main thread
 			dispatch_async(dispatch_get_main_queue()) {
 				if let unwrappedData: NSData = data {
+					// TODO: Refactor and make only one method for getting the movies like in search view controller, if load more true then append movies if not than just set new movies array
 					let newLoadedMovies = MovieFactory().createMovies(unwrappedData)
 					// add the new loaded movies to the existing movies array
 					self.movies.appendContentsOf(newLoadedMovies)
