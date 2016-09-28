@@ -158,13 +158,13 @@
 			isa = PBXGroup;
 			children = (
 				4755061E1D981ABF001EEE17 /* README.md */,
-				4755063E1D986BFE001EEE17 /* Extensions */,
-				475506231D981CB2001EEE17 /* APIs */,
 				475506201D981C85001EEE17 /* App */,
+				475506231D981CB2001EEE17 /* APIs */,
+				4755063E1D986BFE001EEE17 /* Extensions */,
 				47930DE41D9C3FFD00464E23 /* Helpers */,
-				475506211D981C8C001EEE17 /* Controllers */,
 				475506221D981C9D001EEE17 /* Models */,
 				475506241D981CCC001EEE17 /* Views */,
+				475506211D981C8C001EEE17 /* Controllers */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
