@@ -7,6 +7,10 @@
 //
 
 extension Int {
+	
+	/**
+	Cast Int to String
+	*/
 	func toString() -> String {
 		let myString = String(self)
 		return myString

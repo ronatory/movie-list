@@ -15,13 +15,22 @@ class MovieTableViewController: UITableViewController {
 	
 	var pageForRequest: Int = 1
 	
+	/// view which contains the loading text and the spinner
+	let loadingView = UIView()
+	
+	/// spinner during load the table view
+	let spinner = UIActivityIndicatorView()
+	
+	/// text during load the table View
+	let loadingLabel = UILabel()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-		setupTableView()
+		setupView()
 		fetchAndDisplayTopTenMovies()
     }
 	
-	func setupTableView() {
+	func setupView() {
 		// Add movie cell nib
 		let cellNib = UINib(nibName: "MoviePopularCell", bundle: nil)
 		tableView.registerNib(cellNib, forCellReuseIdentifier: "MoviePopularCell")
@@ -39,16 +48,13 @@ class MovieTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return movies.count
     }
 
-	
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
         let cell = tableView.dequeueReusableCellWithIdentifier("MoviePopularCell", forIndexPath: indexPath) as! MoviePopularCell
@@ -88,6 +94,7 @@ class MovieTableViewController: UITableViewController {
 		// TODO: Refactor fetch and display methods -> DRY
 		let application = UIApplication.sharedApplication()
 		application.networkActivityIndicatorVisible = true
+		self.setLoadingScreen()
 		
 		TraktAPIManager().fetchTopTenMovies { (data, errorString) -> Void in
 			application.networkActivityIndicatorVisible = false
@@ -98,6 +105,7 @@ class MovieTableViewController: UITableViewController {
 					// fill the movies array
 					self.movies = MovieFactory().createMovies(unwrappedData)
 					self.tableView.reloadData()
+					self.removeLoadingScreen()
 				} else if let error = errorString {
 					print("\(error)")
 				}
@@ -130,51 +138,47 @@ class MovieTableViewController: UITableViewController {
 			}
 		})
 	}
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	
+	// set the activity indicator into the main view
+	// TODO: refactor DRY, also exists in SearchViewController
+	func setLoadingScreen() {
+		
+		// set view which contains the loading text and the spinner
+		let width: CGFloat = 120
+		let height: CGFloat = 30
+		let x = (self.tableView.frame.width / 2) - (width / 2)
+		let y = (self.tableView.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+		loadingView.frame = CGRectMake(x, y, width, height)
+		loadingView.backgroundColor = UIColor.lightGrayColor()
+		loadingView.layer.cornerRadius = 10
+		
+		// loading text
+		self.loadingLabel.textColor = UIColor.whiteColor()
+		self.loadingLabel.textAlignment = NSTextAlignment.Center
+		self.loadingLabel.text = "Loading..."
+		self.loadingLabel.frame = CGRectMake(0, 0, 140, 30)
+		self.loadingLabel.hidden = false
+		
+		// spinner
+		self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+		self.spinner.frame = CGRectMake(0, 0, 30, 30)
+		self.spinner.startAnimating()
+		
+		// add text and spinner to view
+		loadingView.addSubview(self.spinner)
+		loadingView.addSubview(self.loadingLabel)
+		
+		self.tableView.addSubview(loadingView)
+		
+	}
+	
+	// remove activity indicator from the main view
+	func removeLoadingScreen() {
+		
+		// Hides and stops the text, spinner and remove bg color
+		self.spinner.stopAnimating()
+		self.loadingLabel.hidden = true
+		loadingView.backgroundColor = nil
+		
+	}
 }

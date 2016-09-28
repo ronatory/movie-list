@@ -27,12 +27,21 @@ class SearchViewController:  UIViewController {
 	
 	var oldMoviesCount: Int = 0
 	
-	// release disposables when view is being deallocated
+	/// for releasing disposables when view is being deallocated
 	let disposeBag = DisposeBag()
+	
+	/// view which contains the loading text and the spinner
+	let loadingView = UIView()
+	
+	/// spinner during load the table view
+	let spinner = UIActivityIndicatorView()
+	
+	/// text during load the table View
+	let loadingLabel = UILabel()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		setupTableView()
+		setupView()
 		setupRx()
     }
 
@@ -41,8 +50,8 @@ class SearchViewController:  UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	func setupTableView() {
-		// Add movie search cell nib
+	func setupView() {
+		// add movie search cell nib
 		let cellNib = UINib(nibName: "MovieSearchCell", bundle: nil)
 		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieSearchCell")
 		
@@ -102,6 +111,7 @@ class SearchViewController:  UIViewController {
 		// TODO: Refactor fetch and display methods -> DRY
 		let application = UIApplication.sharedApplication()
 		application.networkActivityIndicatorVisible = true
+		self.setLoadingScreen()
 		
 		TraktAPIManager().fetchMovieSearchResults(pageForRequest, searchText: searchText, callback: { (data, errorString) -> Void in
 			application.networkActivityIndicatorVisible = false
@@ -126,6 +136,7 @@ class SearchViewController:  UIViewController {
 						self.newMoviesCount = 0
 					}
 					self.tableView.reloadData()
+					self.removeLoadingScreen()
 				} else if let error = errorString {
 					print("\(error)")
 				}
@@ -136,6 +147,49 @@ class SearchViewController:  UIViewController {
 	func scrollToFirstRow() {
 		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
 		tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+	}
+	
+	// set the activity indicator into the main view
+	// TODO: refactor DRY, also exists in MovieTableViewController
+	func setLoadingScreen() {
+		
+		// set view which contains the loading text and the spinner
+		let width: CGFloat = 120
+		let height: CGFloat = 30
+		let x = (self.tableView.frame.width / 2) - (width / 2)
+		let y = (self.tableView.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+		loadingView.frame = CGRectMake(x, y, width, height)
+		loadingView.backgroundColor = UIColor.lightGrayColor()
+		loadingView.layer.cornerRadius = 10
+		
+		// loading text
+		self.loadingLabel.textColor = UIColor.whiteColor()
+		self.loadingLabel.textAlignment = NSTextAlignment.Center
+		self.loadingLabel.text = "Loading..."
+		self.loadingLabel.frame = CGRectMake(0, 0, 140, 30)
+		self.loadingLabel.hidden = false
+		
+		// spinner
+		self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+		self.spinner.frame = CGRectMake(0, 0, 30, 30)
+		self.spinner.startAnimating()
+		
+		// add text and spinner to view
+		loadingView.addSubview(self.spinner)
+		loadingView.addSubview(self.loadingLabel)
+		
+		self.tableView.addSubview(loadingView)
+		
+	}
+	
+	// remove activity indicator from the main view
+	func removeLoadingScreen() {
+		
+		// Hides and stops the text, spinner and remove bg color
+		self.spinner.stopAnimating()
+		self.loadingLabel.hidden = true
+		loadingView.backgroundColor = nil
+		
 	}
 }
 
