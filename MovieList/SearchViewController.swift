@@ -19,20 +19,20 @@ class SearchViewController:  UIViewController {
 	
 	var hasSearched = false
 	
+	var loadMoreMovies = false
+	
+	var pageForRequest: Int = 1
+	
+	var newMoviesCount: Int = 0
+	
+	var oldMoviesCount: Int = 0
+	
 	// release disposables when view is being deallocated
 	let disposeBag = DisposeBag()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		// Add movie cell nib
-		let cellNib = UINib(nibName: "MovieCell", bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieCell")
-		tableView.rowHeight = 80
-		
-		// put the table view a little bit higher
-		tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
-		
+		setupTableView()
 		setupRx()
     }
 
@@ -41,11 +41,28 @@ class SearchViewController:  UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
+	func setupTableView() {
+		// Add movie search cell nib
+		let cellNib = UINib(nibName: "MovieSearchCell", bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieSearchCell")
+		
+		// set an estimated row height with automatic dimension in case of longer overview text
+		tableView.estimatedRowHeight = 200
+		tableView.rowHeight = UITableViewAutomaticDimension
+		
+		// put the table view under the searchbar
+		tableView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+		
+		// change search button from keyboard to a done button
+		// no need for it because of the dynamic search (reactivex)
+		searchBar.returnKeyType = UIReturnKeyType.Done
+	}
+	
 	func setupRx() {
 		// search dynamic via use of reactivex
 		searchBar
 			.rx_text // observable property
-			.throttle(0.3, scheduler: MainScheduler.instance) // wait 0.3 seconds for changes
+			.throttle(0.5, scheduler: MainScheduler.instance) // wait 0.5 seconds for changes
 			.distinctUntilChanged() // check if new value is same as old one
 			.filter { $0.characters.count > 0 } // filter for non-empty query
 			.subscribeNext { [unowned self] _ in
@@ -55,7 +72,16 @@ class SearchViewController:  UIViewController {
 				
 				let escapedSearchText = self.searchBar.text!.escapeString()
 				
-				self.fetchAndDisplayMovieSearchResults(escapedSearchText)
+				// set pageForRequest back to 1, cause of new search
+				self.pageForRequest = 1
+				
+				// scroll back to the first row (UX), if user make new search request
+				if self.movies.count != 0 {
+					self.scrollToFirstRow()
+				}
+				
+				// load only the first 10 movies
+				self.fetchAndDisplayMovieSearchResults(searchText: escapedSearchText)
 			}
 			.addDisposableTo(disposeBag)
 		
@@ -71,26 +97,45 @@ class SearchViewController:  UIViewController {
 			.addDisposableTo(disposeBag)
 	}
 	
-	func fetchAndDisplayMovieSearchResults(searchText: String) {
+	func fetchAndDisplayMovieSearchResults(pageForRequest: Int = 1, searchText: String) {
 		// TODO: Add activity indicator inside screen when loading movies
 		// TODO: Refactor fetch and display methods -> DRY
 		let application = UIApplication.sharedApplication()
 		application.networkActivityIndicatorVisible = true
 		
-		TraktAPIManager().fetchMovieSearchResults(searchText, callback: { (data, errorString) -> Void in
+		TraktAPIManager().fetchMovieSearchResults(pageForRequest, searchText: searchText, callback: { (data, errorString) -> Void in
 			application.networkActivityIndicatorVisible = false
 			
 			// ui should always happen on the main thread
 			dispatch_async(dispatch_get_main_queue()) {
 				if let unwrappedData: NSData = data {
-					// fill the movies array
-					self.movies = MovieFactory().createMovieSearchResults(unwrappedData)
+					
+					// TODO: Refactor, there is a shorter way
+					if self.loadMoreMovies {
+						let newLoadedMovies = MovieFactory().createMovieSearchResults(unwrappedData)
+						self.movies.appendContentsOf(newLoadedMovies)
+						
+						// set loadMoreMovies back to false
+						self.loadMoreMovies = false
+
+					} else {
+						// fill the movies array
+						self.movies = MovieFactory().createMovieSearchResults(unwrappedData)
+						
+						// reset number of new movies array to zero to start again with comparing
+						self.newMoviesCount = 0
+					}
 					self.tableView.reloadData()
 				} else if let error = errorString {
 					print("\(error)")
 				}
 			}
 		})
+	}
+	
+	func scrollToFirstRow() {
+		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+		tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
 	}
 }
 
@@ -102,12 +147,6 @@ extension SearchViewController: UISearchBarDelegate {
 			// tells the searchBar not to listen any longer to keyboard inputs
 			// keyboard will hide itself until tap again inside searchBar
 			searchBar.resignFirstResponder()
-			
-			hasSearched = true
-			
-			let escapedSearchText = searchBar.text!.escapeString()
-			
-			fetchAndDisplayMovieSearchResults(escapedSearchText)
 		}
 	}
 }
@@ -127,7 +166,7 @@ extension SearchViewController: UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("MovieSearchCell", forIndexPath: indexPath) as! MovieSearchCell
 		
 		if movies.count == 0 {
 			cell.movieTitleLabel.text = "Nothing found"
@@ -139,6 +178,33 @@ extension SearchViewController: UITableViewDataSource {
 			if let movieImageUrl = movie.poster {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
 			}
+			// show more lines of text
+			cell.movieOverviewLabel.numberOfLines = 0
+			cell.movieOverviewLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+			
+			cell.movieOverviewLabel.text = movie.overview
+		}
+		
+		// set number of movies after first request
+		oldMoviesCount = movies.count
+		
+		// conditions to load the next 10 movies
+		// 1. check if user reached the last row
+		// 2. is number of movies equal or bigger than 10 (if there are only 8 results, it makes no sense to load more)
+		// 3. if the number of movies are higher than 10 compare the number of movies before the last request and after it. if the number is equal then the end is reached
+		// TODO: Find a more simple way for checking
+		if indexPath.row == movies.count - 1 && movies.count >= 10 && oldMoviesCount != newMoviesCount {
+			
+			loadMoreMovies = true
+			
+			// increase counter for page request
+			pageForRequest += 1
+			
+			let escapedSearchText = searchBar.text!.escapeString()
+			fetchAndDisplayMovieSearchResults(pageForRequest, searchText: escapedSearchText)
+			
+			// set the number of movies after load more request
+			newMoviesCount = movies.count
 		}
 		return cell
 	}

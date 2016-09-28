@@ -8,7 +8,9 @@ The project is about to work with the [Trakt.tv API](http://docs.trakt.apiary.io
 
 ## Installation
 
-To install it download it or clone and then start `pod install` in the project directory.
+- Use [CocoaPods](https://cocoapods.org/) as dependency manager
+
+To install, download it or clone and then start `pod install` in the project directory.
 
 After that open the `.xcworkspace` file.
 

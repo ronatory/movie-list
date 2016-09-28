@@ -17,7 +17,11 @@ class MovieTableViewController: UITableViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+		setupTableView()
+		fetchAndDisplayTopTenMovies()
+    }
+	
+	func setupTableView() {
 		// Add movie cell nib
 		let cellNib = UINib(nibName: "MoviePopularCell", bundle: nil)
 		tableView.registerNib(cellNib, forCellReuseIdentifier: "MoviePopularCell")
@@ -25,9 +29,7 @@ class MovieTableViewController: UITableViewController {
 		// set an estimated row height with automatic dimension in case of longer overview text
 		tableView.estimatedRowHeight = 200
 		tableView.rowHeight = UITableViewAutomaticDimension
-
-		fetchAndDisplayTopTenMovies()
-    }
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -59,6 +61,7 @@ class MovieTableViewController: UITableViewController {
 			cell.movieTitleLabel.text = movie.title
 			cell.movieYearLabel.text = movie.year.toString()
 			let rankNumber = indexPath.row + 1
+			// ranknumber will be shown like this 1., 2. and so on
 			cell.movieRankLabel.text = rankNumber.toString() + "."
 			if let movieImageUrl = movie.poster {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
@@ -73,6 +76,7 @@ class MovieTableViewController: UITableViewController {
 		
 		// check if reached last row then load next 10 movies
 		if indexPath.row == movies.count - 1 {
+			// TODO: see search view controller, refactor
 			fetchAndDisplayMoreTopMovies()
 		}
 		
@@ -115,6 +119,7 @@ class MovieTableViewController: UITableViewController {
 			// ui should always happen on the main thread
 			dispatch_async(dispatch_get_main_queue()) {
 				if let unwrappedData: NSData = data {
+					// TODO: Refactor and make only one method for getting the movies like in search view controller, if load more true then append movies if not than just set new movies array
 					let newLoadedMovies = MovieFactory().createMovies(unwrappedData)
 					// add the new loaded movies to the existing movies array
 					self.movies.appendContentsOf(newLoadedMovies)

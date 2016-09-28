@@ -55,9 +55,9 @@ class TraktAPIManager {
 		task.resume()
 	}
 	
-	func fetchMovieSearchResults(searchText: String, callback: (NSData?, String?) -> Void) {
+	func fetchMovieSearchResults(page: Int, searchText: String, callback: (NSData?, String?) -> Void) {
 		
-		let urlStringForMovieSearchResults = "https://api.trakt.tv/search/movie?query=\(searchText)&extended=full,images&page=1&limit=\(moviesPerRequest)"
+		let urlStringForMovieSearchResults = "https://api.trakt.tv/search/movie?query=\(searchText)&extended=full,images&page=\(page)&limit=\(moviesPerRequest)"
 		
 		let url = NSURL(string: urlStringForMovieSearchResults)!
 		let request = moviesURLRequest(url)

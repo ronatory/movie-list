@@ -38,7 +38,7 @@
         <!--Search-->
         <scene sceneID="Fdu-fk-55p">
             <objects>
-                <viewController id="R53-nL-51q" customClass="SearchViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="R53-nL-51q" customClass="SearchViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qMx-hW-tjH"/>
                         <viewControllerLayoutGuide type="bottom" id="w1w-J7-yEZ"/>
