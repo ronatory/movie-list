@@ -31,9 +31,13 @@ class MovieTableViewController: UITableViewController {
     }
 	
 	func setupView() {
-		// Add movie cell nib
-		let cellNib = UINib(nibName: "MoviePopularCell", bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: "MoviePopularCell")
+		// add movie cell nib
+		var cellNib = UINib(nibName: TableViewCellIdentifiers.moviePopularCell, bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.moviePopularCell)
+		
+		// add nothing found cell nib in case that there are no movies in the response
+		cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
 		
 		// set an estimated row height with automatic dimension in case of longer overview text
 		tableView.estimatedRowHeight = 200
@@ -57,18 +61,23 @@ class MovieTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-        let cell = tableView.dequeueReusableCellWithIdentifier("MoviePopularCell", forIndexPath: indexPath) as! MoviePopularCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.moviePopularCell, forIndexPath: indexPath) as! MoviePopularCell
 		
 		if self.movies.count == 0 {
-			cell.movieTitleLabel.text = "Nothing found"
-			cell.movieYearLabel.text = ""
+			return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
 		} else {
 			let movie = movies[indexPath.row]
 			cell.movieTitleLabel.text = movie.title
-			cell.movieYearLabel.text = movie.year.toString()
-			let rankNumber = indexPath.row + 1
+			
+			if movie.year == 0 {
+				cell.movieYearLabel.text = "Unkwown Year"
+			} else {
+				cell.movieYearLabel.text = movie.year.toString()
+			}
 			// ranknumber will be shown like this 1., 2. and so on
+			let rankNumber = indexPath.row + 1
 			cell.movieRankLabel.text = rankNumber.toString() + "."
+			
 			if let movieImageUrl = movie.poster {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
 			}

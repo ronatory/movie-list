@@ -52,8 +52,12 @@ class SearchViewController:  UIViewController {
 	
 	func setupView() {
 		// add movie search cell nib
-		let cellNib = UINib(nibName: "MovieSearchCell", bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: "MovieSearchCell")
+		var cellNib = UINib(nibName: TableViewCellIdentifiers.movieSearchCell, bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.movieSearchCell)
+		
+		// add nothing found cell nib
+		cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
 		
 		// set an estimated row height with automatic dimension in case of longer overview text
 		tableView.estimatedRowHeight = 200
@@ -220,15 +224,18 @@ extension SearchViewController: UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCellWithIdentifier("MovieSearchCell", forIndexPath: indexPath) as! MovieSearchCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.movieSearchCell, forIndexPath: indexPath) as! MovieSearchCell
 		
 		if movies.count == 0 {
-			cell.movieTitleLabel.text = "Nothing found"
-			cell.movieYearLabel.text = ""
+			return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
 		} else {
 			let movie = movies[indexPath.row]
 			cell.movieTitleLabel.text = movie.title
-			cell.movieYearLabel.text = movie.year.toString()
+			if movie.year == 0 {
+				cell.movieYearLabel.text = "Unkwown Year"
+			} else {
+				cell.movieYearLabel.text = movie.year.toString()
+			}
 			if let movieImageUrl = movie.poster {
 				cell.movieImageView.hnk_setImageFromURL(movieImageUrl)
 			}
