@@ -23,13 +23,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWt-Vi-020">
-                        <rect key="frame" x="83" y="15" width="197" height="22"/>
+                        <rect key="frame" x="83" y="10" width="197" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmm-JW-57h">
-                        <rect key="frame" x="83" y="44" width="197" height="18"/>
+                        <rect key="frame" x="83" y="52" width="197" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="cWt-Vi-020" firstAttribute="top" secondItem="hga-pJ-FmH" secondAttribute="top" constant="15" id="Cy8-Ra-uUz"/>
+                    <constraint firstItem="cWt-Vi-020" firstAttribute="top" secondItem="hga-pJ-FmH" secondAttribute="top" constant="10" id="Cy8-Ra-uUz"/>
                     <constraint firstItem="qPs-bU-qug" firstAttribute="leading" secondItem="hga-pJ-FmH" secondAttribute="leading" constant="8" id="VSv-1v-BE4"/>
                     <constraint firstItem="CC2-h0-brV" firstAttribute="top" secondItem="qPs-bU-qug" secondAttribute="bottom" constant="8" id="X77-jM-Gp4"/>
                     <constraint firstItem="cWt-Vi-020" firstAttribute="leading" secondItem="qPs-bU-qug" secondAttribute="trailing" constant="15" id="aZI-1e-O13"/>

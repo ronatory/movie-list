@@ -67,6 +67,11 @@ class MovieTableViewController: UITableViewController {
 			return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
 		} else {
 			let movie = movies[indexPath.row]
+			
+			// show more lines of text
+			cell.movieTitleLabel.numberOfLines = 0
+			cell.movieTitleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+
 			cell.movieTitleLabel.text = movie.title
 			
 			if movie.year == 0 {

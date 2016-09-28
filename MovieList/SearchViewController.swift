@@ -230,6 +230,11 @@ extension SearchViewController: UITableViewDataSource {
 			return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath)
 		} else {
 			let movie = movies[indexPath.row]
+			
+			// show more lines of text
+			cell.movieTitleLabel.numberOfLines = 0
+			cell.movieTitleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+			
 			cell.movieTitleLabel.text = movie.title
 			if movie.year == 0 {
 				cell.movieYearLabel.text = "Unkwown Year"
@@ -271,19 +276,19 @@ extension SearchViewController: UITableViewDataSource {
 	}
 }
 
-extension SearchViewController: UITableViewDelegate {
-	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		// deselect row with an animation
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
-	}
-	
-	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-		// make sure that user can only select rows with actual search result
-		if movies.count == 0 {
-			return nil
-		} else {
-			return indexPath
-		}
-	}
-}
+//extension SearchViewController: UITableViewDelegate {
+//	
+//	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//		// deselect row with an animation
+//		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//	}
+//	
+//	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+//		// make sure that user can only select rows with actual search result
+//		if movies.count == 0 {
+//			return nil
+//		} else {
+//			return indexPath
+//		}
+//	}
+//}
