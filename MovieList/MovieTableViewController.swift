@@ -81,6 +81,7 @@ class MovieTableViewController: UITableViewController {
 			let movie = movies[indexPath.row]
 			
 			// show more lines of text
+			// TODO: On iPhone 4s long title overlaps with year
 			cell.movieTitleLabel.numberOfLines = 0
 			cell.movieTitleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
 
