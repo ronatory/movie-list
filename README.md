@@ -7,7 +7,7 @@ The project is about to work with the [Trakt.tv API](http://docs.trakt.apiary.io
 
 ## Result
 
-![](https://media.giphy.com/media/26hisH3Fo6prTyFFK/giphy.gif)
+![](https://media.giphy.com/media/3oz8xVCVe020hc0wEM/giphy.gif)
 
 ## Installation
 
