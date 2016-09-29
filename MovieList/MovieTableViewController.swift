@@ -81,10 +81,14 @@ class MovieTableViewController: UITableViewController {
       oldMoviesCount = movies.count
     }
     
-    // conditions to load the next 10 movies
-    // 1. check if user reached the last row
-    // 2. is number of movies equal or bigger than 10 (if there are only 8 results, it makes no sense to load more)
-    // 3. if the number of movies are higher than 10 compare the number of movies before the last request and after it. if the number is equal then the end is reached
+    /* 
+    conditions to load the next 10 movies
+    1. check if user reached the last row
+    2. is number of movies equal or bigger than 10 (if there are only 8 results, 
+       it makes no sense to load more)
+    3. if the number of movies are higher than 10 compare the number of movies 
+       before the last request and after it. if the number is equal then the end is reached
+    */
     // TODO: Find a more simple way for checking
     if indexPath.row == movies.count - 1 && movies.count >= 10 && oldMoviesCount != newMoviesCount {
       

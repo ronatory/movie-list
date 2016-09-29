@@ -33,11 +33,11 @@ class SearchViewController:  UIViewController {
 	
 	// MARK: - Override Methods
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		setupView()
-		setupRx()
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupView()
+    setupRx()
+  }
 	
 	// MARK: - Methods
 	
