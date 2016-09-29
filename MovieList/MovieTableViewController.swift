@@ -10,15 +10,19 @@ import UIKit
 import Haneke
 
 class MovieTableViewController: UITableViewController {
-
+	
+	// MARK: - Properties
+	
 	var movies: [Movie] = []
 	
 	var pageForRequest: Int = 1
 	
 	var loadMoreMovies = false
 	
+	/// for comparing, if load more movies is necessary
 	var newMoviesCount: Int = 0
 	
+	/// for comparing, if load more movies is necessary
 	var oldMoviesCount: Int = 0
 	
 	/// view which contains the loading text and the spinner
@@ -30,25 +34,13 @@ class MovieTableViewController: UITableViewController {
 	/// text during load the table View
 	let loadingLabel = UILabel()
 	
+	// MARK: - Override Methods
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupView()
 		fetchAndDisplayTopTenMovies()
     }
-	
-	func setupView() {
-		// add movie cell nib
-		var cellNib = UINib(nibName: TableViewCellIdentifiers.moviePopularCell, bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.moviePopularCell)
-		
-		// add nothing found cell nib in case that there are no movies in the response
-		cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
-		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
-		
-		// set an estimated row height with automatic dimension in case of longer overview text
-		tableView.estimatedRowHeight = 200
-		tableView.rowHeight = UITableViewAutomaticDimension
-	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -81,7 +73,7 @@ class MovieTableViewController: UITableViewController {
 			let movie = movies[indexPath.row]
 			
 			// show more lines of text
-			// TODO: On iPhone 4s long title overlaps with year
+			// TODO: On iPhone 4s and 5 very long titles overlap with year label
 			cell.movieTitleLabel.numberOfLines = 0
 			cell.movieTitleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
 
@@ -114,6 +106,7 @@ class MovieTableViewController: UITableViewController {
 		// 1. check if user reached the last row
 		// 2. is number of movies equal or bigger than 10 (if there are only 8 results, it makes no sense to load more)
 		// 3. if the number of movies are higher than 10 compare the number of movies before the last request and after it. if the number is equal then the end is reached
+		// TODO: Find a more simple way for checking
 		if indexPath.row == movies.count - 1 && movies.count >= 10 && oldMoviesCount != newMoviesCount {
 			
 			loadMoreMovies = true
@@ -129,6 +122,22 @@ class MovieTableViewController: UITableViewController {
 		
         return cell
     }
+	
+	// MARK: - Methods
+	
+	func setupView() {
+		// add movie cell nib
+		var cellNib = UINib(nibName: TableViewCellIdentifiers.moviePopularCell, bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.moviePopularCell)
+		
+		// add nothing found cell nib in case that there are no movies in the response
+		cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
+		tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
+		
+		// set an estimated row height with automatic dimension in case of longer overview text
+		tableView.estimatedRowHeight = 200
+		tableView.rowHeight = UITableViewAutomaticDimension
+	}
 	
 	func fetchAndDisplayTopTenMovies(pageForRequest: Int = 1) {
 

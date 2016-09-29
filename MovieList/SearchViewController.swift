@@ -11,6 +11,8 @@ import RxCocoa
 import RxSwift
 
 class SearchViewController:  UIViewController {
+	
+	// MARK: - Properties
 
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
@@ -23,8 +25,10 @@ class SearchViewController:  UIViewController {
 	
 	var pageForRequest: Int = 1
 	
+	/// for comparing, if load more movies is necessary
 	var newMoviesCount: Int = 0
 	
+	/// for comparing, if load more movies is necessary
 	var oldMoviesCount: Int = 0
 	
 	/// for releasing disposables when view is being deallocated
@@ -39,6 +43,8 @@ class SearchViewController:  UIViewController {
 	/// text during load the table View
 	let loadingLabel = UILabel()
 	
+	// MARK: - Override Methods
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupView()
@@ -49,6 +55,8 @@ class SearchViewController:  UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	// MARK: - Methods
 	
 	func setupView() {
 		// add movie search cell nib
@@ -100,8 +108,6 @@ class SearchViewController:  UIViewController {
 	}
 	
 	func fetchAndDisplayMovieSearchResults(pageForRequest: Int = 1, searchText: String) {
-		// TODO: Add activity indicator inside screen when loading movies
-		// TODO: Refactor fetch and display methods -> DRY
 		let application = UIApplication.sharedApplication()
 		application.networkActivityIndicatorVisible = true
 		self.setLoadingScreen()
@@ -112,8 +118,7 @@ class SearchViewController:  UIViewController {
 			// ui should always happen on the main thread
 			dispatch_async(dispatch_get_main_queue()) {
 				if let unwrappedData: NSData = data {
-					
-					// TODO: Refactor, there is a shorter way
+		
 					if self.loadMoreMovies {
 						let newLoadedMovies = MovieFactory().createMovieSearchResults(unwrappedData)
 						self.movies.appendContentsOf(newLoadedMovies)
@@ -157,35 +162,35 @@ class SearchViewController:  UIViewController {
 		loadingView.layer.cornerRadius = 10
 		
 		// loading text
-		self.loadingLabel.textColor = UIColor.whiteColor()
-		self.loadingLabel.textAlignment = NSTextAlignment.Center
-		self.loadingLabel.text = "Loading..."
-		self.loadingLabel.frame = CGRectMake(0, 0, 140, 30)
-		self.loadingLabel.hidden = false
+		loadingLabel.textColor = UIColor.whiteColor()
+		loadingLabel.textAlignment = NSTextAlignment.Center
+		loadingLabel.text = "Loading..."
+		loadingLabel.frame = CGRectMake(0, 0, 140, 30)
+		loadingLabel.hidden = false
 		
 		// spinner
-		self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-		self.spinner.frame = CGRectMake(0, 0, 30, 30)
-		self.spinner.startAnimating()
+		spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+		spinner.frame = CGRectMake(0, 0, 30, 30)
+		spinner.startAnimating()
 		
 		// add text and spinner to view
 		loadingView.addSubview(self.spinner)
 		loadingView.addSubview(self.loadingLabel)
 		
-		self.tableView.addSubview(loadingView)
-		
+		tableView.addSubview(loadingView)
 	}
 	
 	// remove activity indicator from the main view
 	func removeLoadingScreen() {
 		
 		// Hides and stops the text, spinner and remove bg color
-		self.spinner.stopAnimating()
-		self.loadingLabel.hidden = true
+		spinner.stopAnimating()
+		loadingLabel.hidden = true
 		loadingView.backgroundColor = nil
-		
 	}
 }
+
+// MARK: - Extensions
 
 extension SearchViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -224,7 +229,7 @@ extension SearchViewController: UITableViewDataSource {
 			let movie = movies[indexPath.row]
 			
 			// show more lines of text
-			// TODO: On iPhone 4s long title overlaps with year
+			// TODO: On iPhone 4s and 5 very long titles overlap with year label
 			cell.movieTitleLabel.numberOfLines = 0
 			cell.movieTitleLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
 			
