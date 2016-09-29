@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ronny Glotzbach. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension String {
 	
