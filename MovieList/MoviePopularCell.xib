@@ -41,7 +41,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CC2-h0-brV">
-                        <rect key="frame" x="8" y="78" width="304" height="113"/>
+                        <rect key="frame" x="40" y="78" width="272" height="113"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                     <constraint firstItem="qPs-bU-qug" firstAttribute="leading" secondItem="hga-pJ-FmH" secondAttribute="leading" constant="40" id="VSv-1v-BE4"/>
                     <constraint firstItem="CC2-h0-brV" firstAttribute="top" secondItem="qPs-bU-qug" secondAttribute="bottom" constant="8" id="X77-jM-Gp4"/>
                     <constraint firstItem="cWt-Vi-020" firstAttribute="leading" secondItem="qPs-bU-qug" secondAttribute="trailing" constant="15" id="aZI-1e-O13"/>
-                    <constraint firstItem="CC2-h0-brV" firstAttribute="leading" secondItem="hga-pJ-FmH" secondAttribute="leadingMargin" id="bbB-6p-paR"/>
+                    <constraint firstItem="CC2-h0-brV" firstAttribute="leading" secondItem="hga-pJ-FmH" secondAttribute="leadingMargin" constant="32" id="bbB-6p-paR"/>
                     <constraint firstItem="CC2-h0-brV" firstAttribute="trailing" secondItem="hga-pJ-FmH" secondAttribute="trailingMargin" id="dCu-9U-G3S"/>
                     <constraint firstItem="qPs-bU-qug" firstAttribute="top" secondItem="hga-pJ-FmH" secondAttribute="top" constant="10" id="pTC-bT-n6v"/>
                     <constraint firstItem="hKQ-db-WCl" firstAttribute="leading" secondItem="hga-pJ-FmH" secondAttribute="leading" constant="1" id="qg6-2i-i9J"/>
