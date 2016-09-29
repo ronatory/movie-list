@@ -15,6 +15,12 @@ class MovieTableViewController: UITableViewController {
 	
 	var pageForRequest: Int = 1
 	
+	var loadMoreMovies = false
+	
+	var newMoviesCount: Int = 0
+	
+	var oldMoviesCount: Int = 0
+	
 	/// view which contains the loading text and the spinner
 	let loadingView = UIView()
 	
@@ -56,7 +62,13 @@ class MovieTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+		if movies.count == 0 {
+			// no movies, one row for nothing found cell
+			return 1
+		} else {
+			// movies, one row for every movie
+			return movies.count
+		}
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -92,60 +104,59 @@ class MovieTableViewController: UITableViewController {
 			cell.movieOverviewLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
 			
 			cell.movieOverviewLabel.text = movie.overview
+			
+			// set number of movies after first request
+			oldMoviesCount = movies.count
 		}
 		
-		// check if reached last row then load next 10 movies
-		if indexPath.row == movies.count - 1 {
-			// TODO: see search view controller, refactor
-			fetchAndDisplayMoreTopMovies()
+		// conditions to load the next 10 movies
+		// 1. check if user reached the last row
+		// 2. is number of movies equal or bigger than 10 (if there are only 8 results, it makes no sense to load more)
+		// 3. if the number of movies are higher than 10 compare the number of movies before the last request and after it. if the number is equal then the end is reached
+		if indexPath.row == movies.count - 1 && movies.count >= 10 && oldMoviesCount != newMoviesCount {
+			
+			loadMoreMovies = true
+			
+			// increase counter for page request
+			pageForRequest += 1
+			
+			fetchAndDisplayTopTenMovies(pageForRequest)
+			
+			// set the number of movies after load more request
+			newMoviesCount = movies.count
 		}
 		
         return cell
     }
 	
-	func fetchAndDisplayTopTenMovies() {
-		// TODO: Add activity indicator inside screen when loading movies
-		// TODO: Refactor fetch and display methods -> DRY
+	func fetchAndDisplayTopTenMovies(pageForRequest: Int = 1) {
+
 		let application = UIApplication.sharedApplication()
 		application.networkActivityIndicatorVisible = true
 		self.setLoadingScreen()
 		
-		TraktAPIManager().fetchTopTenMovies { (data, errorString) -> Void in
+		TraktAPIManager().fetchTopTenMovies(pageForRequest, callback: { (data, errorString) -> Void in
 			application.networkActivityIndicatorVisible = false
 			
 			// ui should always happen on the main thread
 			dispatch_async(dispatch_get_main_queue()) {
 				if let unwrappedData: NSData = data {
-					// fill the movies array
-					self.movies = MovieFactory().createMovies(unwrappedData)
+					
+					if self.loadMoreMovies {
+						let newLoadedMovies = MovieFactory().createMovies(unwrappedData)
+						self.movies.appendContentsOf(newLoadedMovies)						
+						
+						// set loadMoreMovies back to false if user scrolls again to the end
+						self.loadMoreMovies = false
+					} else {
+						// fill the movies array
+						self.movies = MovieFactory().createMovies(unwrappedData)
+						
+						// reset number of new movies array to zero to start again with comparing
+						self.newMoviesCount = 0
+					}				
 					self.tableView.reloadData()
 					self.removeLoadingScreen()
-				} else if let error = errorString {
-					print("\(error)")
-				}
-			}
-		}
-	}
-	
-	func fetchAndDisplayMoreTopMovies() {
-		// TODO: Add activity indicator inside screen when loading movies
-		// TODO: Refactor fetch and display methods -> DRY
-		let application = UIApplication.sharedApplication()
-		application.networkActivityIndicatorVisible = true
-		
-		// increase the number for the page request
-		pageForRequest += 1
-		TraktAPIManager().fetchMoreTopMovies(pageForRequest, callback: { (data, errorString) -> Void in
-			application.networkActivityIndicatorVisible = false
-			
-			// ui should always happen on the main thread
-			dispatch_async(dispatch_get_main_queue()) {
-				if let unwrappedData: NSData = data {
-					// TODO: Refactor and make only one method for getting the movies like in search view controller, if load more true then append movies if not than just set new movies array
-					let newLoadedMovies = MovieFactory().createMovies(unwrappedData)
-					// add the new loaded movies to the existing movies array
-					self.movies.appendContentsOf(newLoadedMovies)
-					self.tableView.reloadData()
 				} else if let error = errorString {
 					print("\(error)")
 				}

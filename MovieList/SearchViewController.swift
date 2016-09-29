@@ -97,17 +97,6 @@ class SearchViewController:  UIViewController {
 				self.fetchAndDisplayMovieSearchResults(searchText: escapedSearchText)
 			}
 			.addDisposableTo(disposeBag)
-		
-		// tell the table view, if the user clicks on a cell
-		// and the keyboard is still visible, then hide it
-		tableView
-			.rx_itemSelected
-			.subscribeNext { indexPath in
-				if self.searchBar.isFirstResponder() == true {
-					self.view.endEditing(true)
-				}
-			}
-			.addDisposableTo(disposeBag)
 	}
 	
 	func fetchAndDisplayMovieSearchResults(pageForRequest: Int = 1, searchText: String) {
@@ -129,7 +118,7 @@ class SearchViewController:  UIViewController {
 						let newLoadedMovies = MovieFactory().createMovieSearchResults(unwrappedData)
 						self.movies.appendContentsOf(newLoadedMovies)
 						
-						// set loadMoreMovies back to false
+						// set loadMoreMovies back to false if user scrolls again to the end
 						self.loadMoreMovies = false
 
 					} else {
@@ -212,12 +201,14 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDataSource {
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		// TODO: Refactor shorter way, use an enum
 		if !hasSearched {
+			// no search, no rows
 			return 0
 		} else if movies.count == 0 {
+			// no movies, one row for nothing found cell
 			return 1
 		} else {
+			// movies, one row for every movie
 			return movies.count
 		}
 	}
@@ -275,20 +266,3 @@ extension SearchViewController: UITableViewDataSource {
 		return cell
 	}
 }
-
-//extension SearchViewController: UITableViewDelegate {
-//	
-//	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//		// deselect row with an animation
-//		tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//	}
-//	
-//	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-//		// make sure that user can only select rows with actual search result
-//		if movies.count == 0 {
-//			return nil
-//		} else {
-//			return indexPath
-//		}
-//	}
-//}
