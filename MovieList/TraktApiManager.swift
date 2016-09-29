@@ -8,8 +8,6 @@
 
 import Foundation
 
-private let urlString = "https://api.trakt.tv/movies/popular?extended=full,images&page=1&limit=10"
-
 private let traktAPIKey = "ad005b8c117cdeee58a1bdb7089ea31386cd489b21e14b19818c91511f12a086"
 
 private let moviesPerRequest = 10
@@ -18,29 +16,11 @@ class TraktAPIManager {
 	
 	private let session = NSURLSession.sharedSession()
 	
-	// TODO: Refactor fetch methods -> DRY
-	func fetchTopTenMovies(callback: (NSData?, String?) -> Void) {
+	func fetchTopTenMovies(page: Int, callback: (NSData?, String?) -> Void) {
 		
-		let url = NSURL(string: urlString)!
-		let request = moviesURLRequest(url)
-		let task = session.dataTaskWithRequest(request) {
-			(data, response, error) -> Void in
-			let httpResponse = response as? NSHTTPURLResponse
-			
-			if error != nil {
-				callback(nil, "Error \(httpResponse): \(error!.localizedDescription)")
-			} else {
-				callback(data, nil)
-			}
-		}
-		task.resume()
-	}
-	
-	func fetchMoreTopMovies(page: Int, callback: (NSData?, String?) -> Void) {
+		let urlStringForTopTenMovies = "https://api.trakt.tv/movies/popular?extended=full,images&page=\(page)&limit=\(moviesPerRequest)"
 		
-		let urlStringForMoreTopMovies = "https://api.trakt.tv/movies/popular?extended=full,images&page=\(page)&limit=\(moviesPerRequest)"
-		
-		let url = NSURL(string: urlStringForMoreTopMovies)!
+		let url = NSURL(string: urlStringForTopTenMovies)!
 		let request = moviesURLRequest(url)
 		let task = session.dataTaskWithRequest(request) {
 			(data, response, error) -> Void in

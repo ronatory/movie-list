@@ -10,6 +10,7 @@
 		1EA3FF7D7DD19EB2FF32AB7F /* Pods_MovieList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36D7C2929CD5BFF5CCB8C563 /* Pods_MovieList.framework */; };
 		4730B1451D995DB500FF173E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730B1441D995DB500FF173E /* SearchViewController.swift */; };
 		4730B1471D99822300FF173E /* MovieSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730B1461D99822300FF173E /* MovieSearchResult.swift */; };
+		473AF92F1D9D0FB600D5E11D /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473AF92E1D9D0FB600D5E11D /* UIViewControllerExtensions.swift */; };
 		474BB8C31D9AF4CC00F53A15 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474BB8C21D9AF4CC00F53A15 /* StringExtensions.swift */; };
 		474BB8C51D9B0D2F00F53A15 /* MoviePopularCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474BB8C41D9B0D2F00F53A15 /* MoviePopularCell.xib */; };
 		474BB8C71D9B0F9B00F53A15 /* MoviePopularCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474BB8C61D9B0F9B00F53A15 /* MoviePopularCell.swift */; };
@@ -35,6 +36,7 @@
 		36D7C2929CD5BFF5CCB8C563 /* Pods_MovieList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4730B1441D995DB500FF173E /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4730B1461D99822300FF173E /* MovieSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieSearchResult.swift; sourceTree = "<group>"; };
+		473AF92E1D9D0FB600D5E11D /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		474BB8C21D9AF4CC00F53A15 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		474BB8C41D9B0D2F00F53A15 /* MoviePopularCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviePopularCell.xib; sourceTree = "<group>"; };
 		474BB8C61D9B0F9B00F53A15 /* MoviePopularCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePopularCell.swift; sourceTree = "<group>"; };
@@ -91,8 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				475506361D985D0D001EEE17 /* Movie.swift */,
-				475506381D985D3E001EEE17 /* MovieFactory.swift */,
 				4730B1461D99822300FF173E /* MovieSearchResult.swift */,
+				475506381D985D3E001EEE17 /* MovieFactory.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -124,6 +126,7 @@
 			children = (
 				4755063F1D986D76001EEE17 /* IntExtensions.swift */,
 				474BB8C21D9AF4CC00F53A15 /* StringExtensions.swift */,
+				473AF92E1D9D0FB600D5E11D /* UIViewControllerExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -158,13 +161,13 @@
 			isa = PBXGroup;
 			children = (
 				4755061E1D981ABF001EEE17 /* README.md */,
-				4755063E1D986BFE001EEE17 /* Extensions */,
-				475506231D981CB2001EEE17 /* APIs */,
 				475506201D981C85001EEE17 /* App */,
+				475506231D981CB2001EEE17 /* APIs */,
+				4755063E1D986BFE001EEE17 /* Extensions */,
 				47930DE41D9C3FFD00464E23 /* Helpers */,
-				475506211D981C8C001EEE17 /* Controllers */,
 				475506221D981C9D001EEE17 /* Models */,
 				475506241D981CCC001EEE17 /* Views */,
+				475506211D981C8C001EEE17 /* Controllers */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				4730B1471D99822300FF173E /* MovieSearchResult.swift in Sources */,
 				47930DE61D9C403400464E23 /* TableViewCellIdentifiers.swift in Sources */,
 				47930DDE1D9BC97B00464E23 /* MovieSearchCell.swift in Sources */,
+				473AF92F1D9D0FB600D5E11D /* UIViewControllerExtensions.swift in Sources */,
 				4755061F1D981ABF001EEE17 /* README.md in Sources */,
 				474BB8C31D9AF4CC00F53A15 /* StringExtensions.swift in Sources */,
 				475506371D985D0D001EEE17 /* Movie.swift in Sources */,
