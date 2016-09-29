@@ -93,8 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				475506361D985D0D001EEE17 /* Movie.swift */,
-				475506381D985D3E001EEE17 /* MovieFactory.swift */,
 				4730B1461D99822300FF173E /* MovieSearchResult.swift */,
+				475506381D985D3E001EEE17 /* MovieFactory.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
