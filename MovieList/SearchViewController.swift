@@ -131,6 +131,7 @@ class SearchViewController:  UIViewController {
 					self.tableView.reloadData()
 					self.removeLoadingScreen()
 				} else if let error = errorString {
+					self.showAlert(message: "Something went wrong. Please check your connection and try again.")
 					print("\(error)")
 				}
 			}
