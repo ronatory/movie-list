@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let traktAPIKey = "ad005b8c117cdeee58a1bdb7089ea31386cd489b21e14b19818c91511f12a086"
+private let traktAPIKey = "<Your TraktAPIKey>"
 
 private let moviesPerRequest = 10
 
